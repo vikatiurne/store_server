@@ -6,10 +6,12 @@ const fileUpload = require("express-fileupload");
 const sequelize = require("./bd");
 const router = require("./routes/index");
 const errorHandler = require("./middleware/ErrorHandlingMiddleware");
+const CorsMiddleware = require("./middleware/CorsMiddleware");
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(CorsMiddleware());
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
