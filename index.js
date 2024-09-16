@@ -11,12 +11,7 @@ const CorsMiddleware = require("./middleware/CorsMiddleware");
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
+
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -24,6 +19,12 @@ app.use(
     optionSuccessStatus: 200,
   })
 );
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(express.static("static"));
