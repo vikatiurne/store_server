@@ -108,6 +108,7 @@ module.exports = class UserService {
   }
   static async getAllUsers() {
     const user = await User.findAndCountAll({
+      where: { role: "USER" },
       attributes: ["name", "email", "phone"],
       include: [{ model: Order, as: "orders", attributes: ["amount"] }],
       distinct: true,
